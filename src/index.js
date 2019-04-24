@@ -2,8 +2,17 @@ import m from "mithril";
 
 import UserList from "./views/userList"
 import UserForm from "../models/userForm"
+import Layout from './views/layout'
 
 m.route(document.body, "/list", {
-    "/list": UserList,
-    "/edit/:id": UserForm,
+    "/list": {
+        render: function(){
+            return m(Layout, m(UserList))
+        }
+    },
+    "/edit/:id": {
+        render: function(vnode) {
+            return m(Layout, m(UserForm, vnode.attrs))
+        }
+    },
 })
